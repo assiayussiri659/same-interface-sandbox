@@ -1,8 +1,6 @@
 
 import { useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import Breadcrumbs from '../components/Breadcrumbs';
-import VideoPreview from '../components/VideoPreview';
 import ChatInterface from '../components/ChatInterface';
 
 const Index = () => {
@@ -21,41 +19,39 @@ const Index = () => {
     animateElements();
   }, []);
 
-  const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Templates', href: '/templates' },
-    { label: 'General', href: '/templates/general' },
+  // Solar-related chat suggestions
+  const solarSuggestions = [
+    "Tell me about solar panel efficiency",
+    "How to calculate solar energy needs for my home?",
+    "What are the latest innovations in solar technology?",
+    "Compare monocrystalline and polycrystalline solar panels",
+    "Solar energy storage solutions explained"
   ];
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pb-20">
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pb-20 bg-gradient-to-b from-yellow-50 to-white">
       <Navbar />
       
-      <div className="max-w-4xl mx-auto mt-12 sm:mt-16">
-        <Breadcrumbs 
-          items={breadcrumbItems} 
-          currentPage="ZenoChat - Your Personal Companion" 
-        />
-        
+      <div className="max-w-4xl mx-auto mt-12">
         <div className="text-center mt-12 sm:mt-16">
-          <h1 className="text-4xl sm:text-5xl font-bold heading-gradient opacity-0 animate-on-load">
-            Fully Customizable AI Companion
+          <h1 className="text-4xl sm:text-5xl font-bold text-yellow-800 opacity-0 animate-on-load">
+            SolarBot Assistant
           </h1>
-          <h2 className="text-4xl sm:text-5xl font-bold heading-gradient mt-2 opacity-0 animate-on-load">
-            - Anytime You need.
-          </h2>
           
-          <div className="mt-8 sm:mt-12 flex justify-center opacity-0 animate-on-load">
-            <VideoPreview 
-              title="How To Use ZenoChat Effectively?" 
-              duration="(2:51)" 
-            />
-          </div>
-          
-          <p className="mt-8 sm:mt-12 text-slate-700 max-w-2xl mx-auto leading-relaxed text-lg opacity-0 animate-on-load">
-            Tailor ZenoChat to your unique style and needs — meticulously crafted from your unique
-            inputs and style to revolutionize the way you create, communicate and collaborate.
+          <p className="mt-8 sm:mt-12 text-yellow-700 max-w-2xl mx-auto leading-relaxed text-lg opacity-0 animate-on-load">
+            Your AI companion for all things solar - ask questions, get insights, and explore solar energy solutions tailored to your needs.
           </p>
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-2 max-w-xl mx-auto opacity-0 animate-on-load">
+            {solarSuggestions.map((suggestion, index) => (
+              <button 
+                key={index}
+                className="p-3 text-left text-sm bg-white border border-yellow-200 rounded-lg hover:bg-yellow-50 transition-colors text-yellow-800 shadow-sm"
+              >
+                {suggestion}
+              </button>
+            ))}
+          </div>
         </div>
         
         <ChatInterface />
