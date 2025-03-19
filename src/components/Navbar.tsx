@@ -1,11 +1,24 @@
 
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Trash2 } from 'lucide-react';
+import { useToast } from "@/hooks/use-toast";
 
-const Navbar = () => {
+interface NavbarProps {
+  onClearChat?: () => void;
+}
+
+const Navbar = ({ onClearChat }: NavbarProps = {}) => {
+  const { toast } = useToast();
+
   const handleClearChat = () => {
-    // Logic to clear chat will be implemented here
+    if (onClearChat) {
+      onClearChat();
+      toast({
+        title: "Chat cleared",
+        description: "All messages have been removed",
+        duration: 2000,
+      });
+    }
     console.log('Clearing chat...');
   };
 

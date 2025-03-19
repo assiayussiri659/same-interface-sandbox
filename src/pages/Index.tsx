@@ -1,9 +1,12 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import ChatInterface from '../components/ChatInterface';
 
 const Index = () => {
+  // State to force a re-render of the chat interface when cleared
+  const [chatKey, setChatKey] = useState<number>(1);
+
   // Animate elements on page load with staggered timing
   useEffect(() => {
     const animateElements = () => {
@@ -19,6 +22,12 @@ const Index = () => {
     animateElements();
   }, []);
 
+  // Function to clear the chat
+  const handleClearChat = () => {
+    console.log('Clearing chat from Index component...');
+    setChatKey(prevKey => prevKey + 1);
+  };
+
   // Solar-related chat suggestions
   const solarSuggestions = [
     "Tell me about solar panel efficiency",
@@ -30,7 +39,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pb-20 bg-gradient-to-b from-yellow-50 to-white">
-      <Navbar />
+      <Navbar onClearChat={handleClearChat} />
       
       <div className="max-w-4xl mx-auto mt-12">
         <div className="text-center mt-12 sm:mt-16">
@@ -54,7 +63,7 @@ const Index = () => {
           </div>
         </div>
         
-        <ChatInterface />
+        <ChatInterface key={chatKey} />
       </div>
     </div>
   );
