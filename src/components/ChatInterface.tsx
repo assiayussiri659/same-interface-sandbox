@@ -11,9 +11,10 @@ type Message = {
 
 interface ChatInterfaceProps {
   selectedSuggestion?: string | null;
+  onChatActivityChange?: (isActive: boolean) => void;
 }
 
-const ChatInterface = ({ selectedSuggestion }: ChatInterfaceProps) => {
+const ChatInterface = ({ selectedSuggestion, onChatActivityChange }: ChatInterfaceProps) => {
   const [message, setMessage] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
@@ -25,6 +26,13 @@ const ChatInterface = ({ selectedSuggestion }: ChatInterfaceProps) => {
       setMessage(selectedSuggestion);
     }
   }, [selectedSuggestion]);
+
+  // Notify parent component about chat activity
+  useEffect(() => {
+    if (onChatActivityChange) {
+      onChatActivityChange(chatHistory.length > 0);
+    }
+  }, [chatHistory, onChatActivityChange]);
 
   // Scroll to bottom of chat when new messages are added
   useEffect(() => {

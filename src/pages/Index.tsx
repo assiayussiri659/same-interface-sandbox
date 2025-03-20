@@ -7,6 +7,7 @@ const Index = () => {
   // State to force a re-render of the chat interface when cleared
   const [chatKey, setChatKey] = useState<number>(1);
   const [selectedSuggestion, setSelectedSuggestion] = useState<string | null>(null);
+  const [isChatActive, setIsChatActive] = useState<boolean>(false);
 
   // Animate elements on page load with staggered timing
   useEffect(() => {
@@ -28,11 +29,18 @@ const Index = () => {
     console.log('Clearing chat from Index component...');
     setChatKey(prevKey => prevKey + 1);
     setSelectedSuggestion(null);
+    setIsChatActive(false);
   };
 
   // Handle suggestion click
   const handleSuggestionClick = (suggestion: string) => {
     setSelectedSuggestion(suggestion);
+    setIsChatActive(true);
+  };
+
+  // Handle chat activity change
+  const handleChatActivityChange = (isActive: boolean) => {
+    setIsChatActive(isActive);
   };
 
   // Solar-related chat suggestions
@@ -49,29 +57,35 @@ const Index = () => {
       <Navbar onClearChat={handleClearChat} />
       
       <div className="max-w-4xl mx-auto mt-8">
-        <div className="text-center mb-6">
-          <h1 className="text-4xl sm:text-5xl font-bold text-yellow-800 opacity-0 animate-on-load">
-            SolarBot Assistant
-          </h1>
-          
-          <p className="mt-4 sm:mt-6 text-yellow-700 max-w-2xl mx-auto leading-relaxed text-lg opacity-0 animate-on-load">
-            Your AI companion for all things solar - ask questions, get insights, and explore solar energy solutions tailored to your needs.
-          </p>
+        {!isChatActive && (
+          <div className="text-center mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold text-yellow-800 opacity-0 animate-on-load">
+              SolarBot Assistant
+            </h1>
+            
+            <p className="mt-4 sm:mt-6 text-yellow-700 max-w-2xl mx-auto leading-relaxed text-lg opacity-0 animate-on-load">
+              Your AI companion for all things solar - ask questions, get insights, and explore solar energy solutions tailored to your needs.
+            </p>
 
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-2 max-w-xl mx-auto opacity-0 animate-on-load">
-            {solarSuggestions.map((suggestion, index) => (
-              <button 
-                key={index}
-                onClick={() => handleSuggestionClick(suggestion)}
-                className="p-3 text-left text-sm bg-white border border-yellow-200 rounded-lg hover:bg-yellow-50 transition-colors text-yellow-800 shadow-sm"
-              >
-                {suggestion}
-              </button>
-            ))}
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-2 max-w-xl mx-auto opacity-0 animate-on-load">
+              {solarSuggestions.map((suggestion, index) => (
+                <button 
+                  key={index}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                  className="p-3 text-left text-sm bg-white border border-yellow-200 rounded-lg hover:bg-yellow-50 transition-colors text-yellow-800 shadow-sm"
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
         
-        <ChatInterface key={chatKey} selectedSuggestion={selectedSuggestion} />
+        <ChatInterface 
+          key={chatKey} 
+          selectedSuggestion={selectedSuggestion} 
+          onChatActivityChange={handleChatActivityChange}
+        />
       </div>
     </div>
   );
