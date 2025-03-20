@@ -69,7 +69,7 @@ const ChatInterface = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 animate-fade-up">
+    <div className="mt-8 animate-fade-up">
       {/* Chat messages container */}
       {chatHistory.length > 0 && (
         <div 
@@ -149,14 +149,6 @@ const ChatInterface = () => {
           </div>
         </div>
       </form>
-      <div className="flex justify-center mt-6">
-        <button className="text-slate-500 hover:text-slate-700 transition-colors text-sm flex items-center space-x-1">
-          <span>Show chat settings</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-      </div>
     </div>
   );
 };
