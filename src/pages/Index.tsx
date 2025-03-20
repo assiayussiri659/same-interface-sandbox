@@ -57,6 +57,7 @@ const Index = () => {
       <Navbar onClearChat={handleClearChat} />
       
       <div className="max-w-4xl mx-auto mt-8">
+        {/* Show title and description only when chat is not active */}
         {!isChatActive && (
           <div className="text-center mb-6">
             <h1 className="text-4xl sm:text-5xl font-bold text-yellow-800 opacity-0 animate-on-load">
@@ -66,20 +67,21 @@ const Index = () => {
             <p className="mt-4 sm:mt-6 text-yellow-700 max-w-2xl mx-auto leading-relaxed text-lg opacity-0 animate-on-load">
               Your AI companion for all things solar - ask questions, get insights, and explore solar energy solutions tailored to your needs.
             </p>
-
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-2 max-w-xl mx-auto opacity-0 animate-on-load">
-              {solarSuggestions.map((suggestion, index) => (
-                <button 
-                  key={index}
-                  onClick={() => handleSuggestionClick(suggestion)}
-                  className="p-3 text-left text-sm bg-white border border-yellow-200 rounded-lg hover:bg-yellow-50 transition-colors text-yellow-800 shadow-sm"
-                >
-                  {suggestion}
-                </button>
-              ))}
-            </div>
           </div>
         )}
+        
+        {/* Always show suggestions - they're now outside the conditional rendering */}
+        <div className={`${isChatActive ? 'mb-4' : 'mt-6'} grid grid-cols-1 md:grid-cols-2 gap-2 max-w-xl mx-auto ${!isChatActive ? 'opacity-0 animate-on-load' : ''}`}>
+          {solarSuggestions.map((suggestion, index) => (
+            <button 
+              key={index}
+              onClick={() => handleSuggestionClick(suggestion)}
+              className="p-3 text-left text-sm bg-white border border-yellow-200 rounded-lg hover:bg-yellow-50 transition-colors text-yellow-800 shadow-sm"
+            >
+              {suggestion}
+            </button>
+          ))}
+        </div>
         
         <ChatInterface 
           key={chatKey} 
