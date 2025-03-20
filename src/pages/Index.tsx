@@ -70,18 +70,20 @@ const Index = () => {
           </div>
         )}
         
-        {/* Always show suggestions - they're now outside the conditional rendering */}
-        <div className={`${isChatActive ? 'mb-4' : 'mt-6'} grid grid-cols-1 md:grid-cols-2 gap-2 max-w-xl mx-auto ${!isChatActive ? 'opacity-0 animate-on-load' : ''}`}>
-          {solarSuggestions.map((suggestion, index) => (
-            <button 
-              key={index}
-              onClick={() => handleSuggestionClick(suggestion)}
-              className="p-3 text-left text-sm bg-white border border-yellow-200 rounded-lg hover:bg-yellow-50 transition-colors text-yellow-800 shadow-sm"
-            >
-              {suggestion}
-            </button>
-          ))}
-        </div>
+        {/* Only show suggestions when chat is not active */}
+        {!isChatActive && (
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-2 max-w-xl mx-auto opacity-0 animate-on-load">
+            {solarSuggestions.map((suggestion, index) => (
+              <button 
+                key={index}
+                onClick={() => handleSuggestionClick(suggestion)}
+                className="p-3 text-left text-sm bg-white border border-yellow-200 rounded-lg hover:bg-yellow-50 transition-colors text-yellow-800 shadow-sm"
+              >
+                {suggestion}
+              </button>
+            ))}
+          </div>
+        )}
         
         <ChatInterface 
           key={chatKey} 
