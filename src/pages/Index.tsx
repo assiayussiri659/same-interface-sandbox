@@ -27,6 +27,12 @@ const Index = () => {
   const handleClearChat = () => {
     console.log('Clearing chat from Index component...');
     setChatKey(prevKey => prevKey + 1);
+    setSelectedSuggestion(null);
+  };
+
+  // Handle suggestion click
+  const handleSuggestionClick = (suggestion: string) => {
+    setSelectedSuggestion(suggestion);
   };
 
   // Solar-related chat suggestions
@@ -56,7 +62,7 @@ const Index = () => {
             {solarSuggestions.map((suggestion, index) => (
               <button 
                 key={index}
-                onClick={() => setSelectedSuggestion(suggestion)}
+                onClick={() => handleSuggestionClick(suggestion)}
                 className="p-3 text-left text-sm bg-white border border-yellow-200 rounded-lg hover:bg-yellow-50 transition-colors text-yellow-800 shadow-sm"
               >
                 {suggestion}
@@ -65,7 +71,7 @@ const Index = () => {
           </div>
         </div>
         
-        <ChatInterface key={chatKey} />
+        <ChatInterface key={chatKey} selectedSuggestion={selectedSuggestion} />
       </div>
     </div>
   );

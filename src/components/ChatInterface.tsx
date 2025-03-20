@@ -9,11 +9,22 @@ type Message = {
   timestamp: Date;
 };
 
-const ChatInterface = () => {
+interface ChatInterfaceProps {
+  selectedSuggestion?: string | null;
+}
+
+const ChatInterface = ({ selectedSuggestion }: ChatInterfaceProps) => {
   const [message, setMessage] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  // Handle selected suggestion
+  useEffect(() => {
+    if (selectedSuggestion) {
+      setMessage(selectedSuggestion);
+    }
+  }, [selectedSuggestion]);
 
   // Scroll to bottom of chat when new messages are added
   useEffect(() => {
@@ -48,6 +59,16 @@ const ChatInterface = () => {
         // Simple response logic based on user query
         if (message.toLowerCase().includes('solar panel') && message.toLowerCase().includes('cloudy')) {
           botResponse = "Solar panels still generate power in cloudy weather, but efficiency drops to ~10-25%. They use diffuse sunlight, and modern panels are designed to capture a wider light spectrum for better performance in less-than-ideal conditions.";
+        } else if (message.toLowerCase().includes('efficiency')) {
+          botResponse = "Solar panel efficiency typically ranges from 15-22% for residential panels. Monocrystalline panels offer the highest efficiency (18-22%), followed by polycrystalline (15-17%) and thin-film (10-13%). Factors affecting efficiency include panel orientation, shading, temperature, and dust accumulation.";
+        } else if (message.toLowerCase().includes('calculate') && message.toLowerCase().includes('home')) {
+          botResponse = "To calculate solar energy needs for your home: 1) Check your annual electricity usage in kWh from utility bills, 2) Divide by your area's solar irradiance (sunshine hours/year), 3) Divide by 0.75 to account for system losses, 4) The result is the kW system size needed. For a quick estimate, each kW of solar typically requires 70-100 sq ft of roof space.";
+        } else if (message.toLowerCase().includes('innovation')) {
+          botResponse = "Recent solar technology innovations include: 1) Bifacial panels that capture light from both sides, 2) Perovskite solar cells that promise higher efficiency at lower costs, 3) Building-integrated photovoltaics (BIPV) that blend seamlessly with architecture, 4) Floating solar farms that use water bodies to save land space, and 5) Solar skin designs that can match roof aesthetics while maintaining efficiency.";
+        } else if (message.toLowerCase().includes('monocrystalline') && message.toLowerCase().includes('polycrystalline')) {
+          botResponse = "Comparing monocrystalline vs. polycrystalline panels: Monocrystalline panels are more efficient (18-22% vs. 15-17%), have a longer lifespan, perform better in high temperatures, and have a sleek black appearance but cost more. Polycrystalline panels are more affordable, have a blue speckled appearance, require less energy to manufacture, but are slightly less efficient and have a larger footprint for the same output.";
+        } else if (message.toLowerCase().includes('storage')) {
+          botResponse = "Solar energy storage solutions include: 1) Lithium-ion batteries (most common, high efficiency, compact), 2) Lead-acid batteries (affordable but shorter lifespan), 3) Flow batteries (long duration, good for large systems), 4) Saltwater batteries (environmentally friendly, non-toxic), and 5) Thermal storage systems that store energy as heat. Home battery systems typically range from 5-15kWh capacity and can power essential loads during outages.";
         } else if (message.toLowerCase().includes('solar')) {
           botResponse = "Solar energy is a renewable energy source that converts sunlight into electricity using photovoltaic cells. It's environmentally friendly and becoming increasingly cost-effective with technological advances.";
         } else {
@@ -69,12 +90,12 @@ const ChatInterface = () => {
   };
 
   return (
-    <div className="mt-8 animate-fade-up">
+    <div className="mt-4 animate-fade-up">
       {/* Chat messages container */}
       {chatHistory.length > 0 && (
         <div 
           ref={chatContainerRef}
-          className="mb-4 max-h-96 overflow-y-auto p-4 rounded-lg bg-white border border-yellow-200 shadow-sm"
+          className="mb-4 max-h-[400px] overflow-y-auto p-4 rounded-lg bg-white border border-yellow-200 shadow-sm"
         >
           {chatHistory.map((msg) => (
             <div 
@@ -101,7 +122,7 @@ const ChatInterface = () => {
       {/* Chat input form */}
       <form onSubmit={handleSubmit} className="relative">
         <div 
-          className={`chat-input ${isFocused ? 'ring-2 ring-yellow-400/20' : ''}`}
+          className={`flex items-center w-full rounded-full border border-yellow-200 bg-white px-4 py-2 shadow-sm ${isFocused ? 'ring-2 ring-yellow-400/20' : ''}`}
           style={{
             transform: isFocused ? 'translateY(-2px)' : 'translateY(0)',
             transition: 'transform 0.3s ease-in-out'
@@ -125,7 +146,7 @@ const ChatInterface = () => {
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             placeholder="Ask about solar energy..."
-            className="flex-1 outline-none bg-transparent text-slate-700 placeholder:text-slate-400"
+            className="flex-1 outline-none bg-transparent text-slate-700 placeholder:text-slate-400 mx-2"
           />
           <div className="flex items-center space-x-2">
             <button
