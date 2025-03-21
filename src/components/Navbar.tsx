@@ -23,7 +23,7 @@ const Navbar = ({ onClearChat }: NavbarProps = {}) => {
   };
 
   return (
-    <nav className="glass-morphism w-full py-4 px-6 rounded-full animate-fade-in mx-auto max-w-7xl mt-4 bg-yellow-50 border-yellow-100">
+    <nav className="glass-morphism w-full py-3 px-6 rounded-full animate-fade-in mx-auto max-w-7xl mt-4 mb-2 bg-yellow-50 border-yellow-100">
       <div className="flex items-center justify-between">
         <Link to="/" className="flex items-center space-x-2 logo-shine">
           <div className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center">

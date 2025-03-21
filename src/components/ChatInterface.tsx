@@ -98,7 +98,7 @@ const ChatInterface = ({ selectedSuggestion, onChatActivityChange }: ChatInterfa
   };
 
   return (
-    <div className="mt-4 animate-fade-up">
+    <div className="mt-2 animate-fade-up">
       {/* Chat messages container */}
       {chatHistory.length > 0 && (
         <div 
