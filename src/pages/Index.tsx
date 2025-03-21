@@ -53,7 +53,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pb-20 bg-gradient-to-b from-yellow-50 to-white">
+    <div className="min-h-screen px-4 sm:px-6 lg:px-8 pb-20 bg-gradient-to-b from-amber-50 to-white">
       {/* Navbar now has negative bottom margin to bring elements closer */}
       <div className="max-w-4xl mx-auto">
         <Navbar onClearChat={handleClearChat} />
@@ -62,11 +62,11 @@ const Index = () => {
           {/* Show title and description only when chat is not active */}
           {!isChatActive && (
             <div className="text-center mb-6">
-              <h1 className="text-4xl sm:text-5xl font-bold text-yellow-800 opacity-0 animate-on-load">
+              <h1 className="text-4xl sm:text-5xl font-bold text-amber-800 opacity-0 animate-on-load">
                 SolarBot Assistant
               </h1>
               
-              <p className="mt-4 sm:mt-6 text-yellow-700 max-w-2xl mx-auto leading-relaxed text-lg opacity-0 animate-on-load">
+              <p className="mt-4 sm:mt-6 text-amber-700 max-w-2xl mx-auto leading-relaxed text-lg opacity-0 animate-on-load">
                 Your AI companion for all things solar - ask questions, get insights, and explore solar energy solutions tailored to your needs.
               </p>
             </div>
@@ -79,7 +79,7 @@ const Index = () => {
                 <button 
                   key={index}
                   onClick={() => handleSuggestionClick(suggestion)}
-                  className="p-3 text-left text-sm bg-white border border-yellow-200 rounded-lg hover:bg-yellow-50 transition-colors text-yellow-800 shadow-sm"
+                  className="p-3 text-left text-sm bg-white border border-amber-200 rounded-lg hover:bg-amber-50 transition-colors text-amber-800 shadow-sm"
                 >
                   {suggestion}
                 </button>
